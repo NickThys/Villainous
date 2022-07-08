@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Villainous.Contracts\Villainous.Contracts.csproj" />
+    <ProjectReference Include="..\Villainous.Infastructure\Villainous.Infastructure.csproj" />
+  </ItemGroup>
+
 </Project>
