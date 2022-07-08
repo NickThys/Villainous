@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Villainous.DataAccess", "Vi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Villainous.Infastructure", "Villainous.Infastructure\Villainous.Infastructure.csproj", "{59794F76-045C-4A68-B2D1-6D08520B7B8F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Villainous.API", "Villainous.API\Villainous.API.csproj", "{D7864471-1EDE-4C46-9336-E46ED570DE36}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{59794F76-045C-4A68-B2D1-6D08520B7B8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{59794F76-045C-4A68-B2D1-6D08520B7B8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{59794F76-045C-4A68-B2D1-6D08520B7B8F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D7864471-1EDE-4C46-9336-E46ED570DE36}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D7864471-1EDE-4C46-9336-E46ED570DE36}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D7864471-1EDE-4C46-9336-E46ED570DE36}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D7864471-1EDE-4C46-9336-E46ED570DE36}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
