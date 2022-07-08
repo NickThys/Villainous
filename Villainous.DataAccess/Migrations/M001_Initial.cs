@@ -14,16 +14,24 @@ namespace Villainous.DataAccess.Migrations
 
         public override void Up()
         {
+
+            Create.Table("Games")
+                .WithColumn("Id").AsInt32().Identity().PrimaryKey().NotNullable()
+                .WithColumn("Code").AsString().NotNullable()
+                .WithColumn("PlayerPlaying").AsInt32().Nullable();
             Create.Table("Players")
                 .WithColumn("Id").AsInt32().Identity().PrimaryKey().NotNullable()
                 .WithColumn("Name").AsString().NotNullable()
-                .WithColumn("Position").AsInt32().NotNullable()
-                .WithColumn("IsReady").AsBoolean().NotNullable();
-
+                .WithColumn("GameId").AsInt32().NotNullable().ForeignKey("FK_players_game", "Games", "Id");
         }
 
         public override void Down()
         {
+            if (Schema.Table("Players").Constraint("FK_players_game").Exists())
+            {
+                Delete.ForeignKey("FK_players_game").OnTable("Players");
+            }
+            Delete.Table("Games");
             Delete.Table("Players");
         }
     }
