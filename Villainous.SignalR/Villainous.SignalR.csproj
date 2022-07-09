@@ -7,7 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Hubs\" />
+    <ProjectReference Include="..\Villainous.Bussines\Villainous.Bussines.csproj" />
+    <ProjectReference Include="..\Villainous.Infastructure\Villainous.Infastructure.csproj" />
   </ItemGroup>
 
 </Project>
