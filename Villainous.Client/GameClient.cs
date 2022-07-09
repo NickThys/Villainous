@@ -6,7 +6,7 @@ namespace Villainous.Client;
 public class GameClient
 {
     //todo Add url
-    private static string _apiHost = "";
+    private static string _apiHost = "https://localhost:7175";
 
     public async Task<string> CreateGame(string playerName)
     {
