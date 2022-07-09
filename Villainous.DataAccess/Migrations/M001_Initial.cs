@@ -22,7 +22,7 @@ namespace Villainous.DataAccess.Migrations
             Create.Table("Players")
                 .WithColumn("Id").AsInt32().Identity().PrimaryKey().NotNullable()
                 .WithColumn("Name").AsString().NotNullable()
-                .WithColumn("IsHost").AsBoolean().NotNullable()
+                .WithColumn("IsHost").AsBoolean().NotNullable().WithDefaultValue(false)
                 .WithColumn("GameId").AsInt32().NotNullable().ForeignKey("FK_players_game", "Games", "Id");
         }
 

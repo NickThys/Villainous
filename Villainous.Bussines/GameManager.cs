@@ -44,4 +44,24 @@ public class GameManager
 
         return new CreateGameResponse(gameCode);
     }
+
+    public async Task<JoinGameResponse> JoinGame(JoinGameRequest request)
+    {
+        var game=await _dbContext.Games.SingleOrDefaultAsync(g=>g.Code==request.GameCode);
+
+        if (game == null)
+        {
+            return null;
+        }
+        var player = new Player
+        {
+            Name = request.PlayerName,
+            Game = game
+        };
+
+        _dbContext.Players.Add(player);
+        await _dbContext.SaveChangesAsync();
+
+        return new JoinGameResponse(game.Code);
+    }
 }

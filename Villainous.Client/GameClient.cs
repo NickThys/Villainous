@@ -18,4 +18,15 @@ public class GameClient
 
         return createGameResponse.GameCode;
     }
+
+    public async Task<string> JoinGame(string gameCode,string playerName)
+    {
+        var request =new JoinGameRequest(gameCode, playerName);
+
+        var client = new HttpClient();
+        var response = await client.PostAsJsonAsync($"{_apiHost}/games/{gameCode}/join", request);
+        var joinGameResponse=await response.Content.ReadFromJsonAsync<JoinGameRequest>();
+
+        return joinGameResponse.GameCode;
+    }
 }

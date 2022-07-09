@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc;
 using Villainous.API;
 using Villainous.Bussines;
 using Villainous.Bussines.Helpers;
@@ -28,6 +29,6 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.MapPost("/games", (IApiHelper<GameManager> helper, CreateGameRequest request) => helper.Post(l => l.CreateGame(request)));
-
+app.MapPost("/games/{GameCode}/join", (IApiHelper<GameManager> helper, [FromRoute] string GameCode, JoinGameRequest request) => helper.Post(l => l.JoinGame(request with { GameCode = GameCode })));
 app.Run();
 
