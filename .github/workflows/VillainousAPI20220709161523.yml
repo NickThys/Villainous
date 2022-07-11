@@ -19,7 +19,7 @@ env:
   API_IMPORT_SPECIFICATION_PATH: Villainous.API/publish/swagger.json
   API_IMPORT_DLL: Villainous.API/publish/Villainous.API.dll
   API_IMPORT_VERSION: v1
-  ConnectionStrings:db: ${{ secrets.CONNSTRING }}
+  ConnectionStrings.db: ${{ secrets.CONNSTRING }}
 jobs:
   build:
     runs-on: windows-latest
