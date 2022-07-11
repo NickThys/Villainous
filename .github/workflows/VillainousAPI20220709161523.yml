@@ -2,7 +2,7 @@ name: Build and deploy .NET Core application to windows webapp VillainousAPI2022
 on:
   push:
     branches:
-    - feature/join-game
+    - master
 env:
   AZURE_WEBAPP_NAME: VillainousAPI20220709161523
   DOTNET_CORE_VERSION: 6.0.x
@@ -28,6 +28,12 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: ${{ env.DOTNET_CORE_VERSION }}
+    - name: App Settings Variable Substitution
+      uses: microsoft/variable-substitution@v1
+      with:
+        files: '${{env.DOTNET_ROOT}}/Villainous.API/appsettings.json'
+      env:
+        ConnectionStrings:db: ${{ secrets.CONNSTRING }}
     - name: Setup SwashBuckle .NET Core
       uses: actions/setup-dotnet@v1
       with:
