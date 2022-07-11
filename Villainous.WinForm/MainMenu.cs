@@ -7,7 +7,11 @@ namespace Villainous.WinForm
     public partial class MainMenu : Form
     {
         //TODO: add URL
+#if DEBUG
         private static string _signalRHost = "https://localhost:7186/";
+#else
+        private static string _signalRHost = "https://villainoussignalr20220711143214.azurewebsites.net/";
+#endif
         private readonly GameClient _client;
         private LobbyState _lobbyState = LobbyState.MainMenu;
         private readonly Random _random = new ();
