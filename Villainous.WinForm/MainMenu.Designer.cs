@@ -40,6 +40,7 @@
             this.JoinBtn = new System.Windows.Forms.Button();
             this.gameCodeTextLbl = new System.Windows.Forms.Label();
             this.gameCodeLbl = new System.Windows.Forms.Label();
+            this.joinGameBtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.LogoImg)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             this.JoinPnl.SuspendLayout();
@@ -80,6 +81,7 @@
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Controls.Add(this.joinGameBtn, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.CreateGameBTN, 0, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 556);
@@ -196,6 +198,22 @@
             this.gameCodeLbl.Text = "#";
             this.gameCodeLbl.Visible = false;
             // 
+            // joinGameBtn
+            // 
+            this.joinGameBtn.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.joinGameBtn.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.joinGameBtn.CausesValidation = false;
+            this.joinGameBtn.Font = new System.Drawing.Font("Gloucester MT Extra Condensed", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.joinGameBtn.Location = new System.Drawing.Point(702, 7);
+            this.joinGameBtn.MaximumSize = new System.Drawing.Size(300, 40);
+            this.joinGameBtn.MinimumSize = new System.Drawing.Size(100, 35);
+            this.joinGameBtn.Name = "joinGameBtn";
+            this.joinGameBtn.Size = new System.Drawing.Size(300, 40);
+            this.joinGameBtn.TabIndex = 2;
+            this.joinGameBtn.Text = "Join game";
+            this.joinGameBtn.UseVisualStyleBackColor = true;
+            this.joinGameBtn.Click += new System.EventHandler(this.joinGameBtn_Click);
+            // 
             // MainMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -237,5 +255,6 @@
         private Button JoinBtn;
         private Label gameCodeTextLbl;
         private Label gameCodeLbl;
+        private Button joinGameBtn;
     }
 }

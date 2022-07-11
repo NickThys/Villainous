@@ -1,13 +1,13 @@
 using Villainous.Bussines;
 using Villainous.Bussines.Helpers;
-using Villainous.Infastructure.EntityFramework;
+using Villainous.Infastructure;
 using Villainous.SignalR.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
-
+var connString = builder.Configuration.GetValue<string>("ConnectionStrings:db");
 builder.Configuration.AddEnvironmentVariables();
 builder.Services.AddSingleton<GameCodeHelper>();
-builder.Services.AddDbContext<VillainousDbContext>();
+builder.Services.ConfigureInfastructure(connString);
 builder.Services.AddTransient<GameManager>();
 builder.Services.AddSignalR();
 builder.Services.AddSingleton<GameHub>();

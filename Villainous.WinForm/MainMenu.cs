@@ -32,11 +32,11 @@ namespace Villainous.WinForm
         }
         private void RefreshMenu()
         {
-            JoinPnl.Visible = _lobbyState == LobbyState.NewGame;
-            CreateGameBTN.Enabled=_lobbyState == LobbyState.MainMenu;
-            CreateGameBTN.Visible=_lobbyState!=LobbyState.Lobby;
+            JoinPnl.Visible = _lobbyState == LobbyState.NewGame||_lobbyState==LobbyState.JoinGame;
+            CreateGameBTN.Enabled= joinGameBtn.Enabled = _lobbyState == LobbyState.MainMenu;
+            CreateGameBTN.Visible=joinGameBtn.Visible=_lobbyState!=LobbyState.Lobby;
             gameCodeTextLbl.Visible=gameCodeLbl.Visible=_lobbyState==LobbyState.Lobby;
-            gameCodePanelLBL.Visible=gameCodeTxtBx.Visible=_lobbyState!=LobbyState.NewGame;
+            gameCodePanelLBL.Visible=gameCodeTxtBx.Visible=_lobbyState==LobbyState.JoinGame;
         }
 
         private void CreateGameBTN_Click(object sender, EventArgs e)
@@ -44,12 +44,20 @@ namespace Villainous.WinForm
             LobbyState = LobbyState.NewGame;
         }
 
+        private void joinGameBtn_Click(object sender, EventArgs e)
+        {
+            LobbyState = LobbyState.JoinGame;
+        }
         private async void JoinBtn_Click(object sender, EventArgs e)
         {
             var gameCode = string.Empty;
             if (_lobbyState == LobbyState.NewGame)
             {
                 gameCode = await _client.CreateGame(playerNameTxtBX.Text);
+            }
+            if (_lobbyState == LobbyState.JoinGame)
+            {
+                gameCode = await _client.JoinGame(gameCodeTxtBx.Text, playerNameTxtBX.Text);
             }
             LobbyState = LobbyState.Lobby;
             gameCodeLbl.Text = gameCode;

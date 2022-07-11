@@ -1,3 +1,3 @@
 ﻿namespace Villainous.WinForm.Enums;
 
-public enum LobbyState{MainMenu,NewGame,Lobby};
+public enum LobbyState{MainMenu, NewGame, JoinGame, Lobby};
