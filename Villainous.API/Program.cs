@@ -5,8 +5,9 @@ using Villainous.Bussines.Helpers;
 using Villainous.Contracts;
 using Villainous.Infastructure;
 
-var connString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=villainous;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-var builder = WebApplication.CreateBuilder(args); 
+
+var builder = WebApplication.CreateBuilder(args);
+var connString = builder.Configuration.GetValue<string>("ConnectionStrings:db");
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
