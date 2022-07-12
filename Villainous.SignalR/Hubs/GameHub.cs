@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
+using Villainous.Contracts;
 using Villainous.Infastructure.EntityFramework;
 
 namespace Villainous.SignalR.Hubs;
@@ -12,11 +13,21 @@ public class GameHub:Hub
     {
         _serviceScopeFactory = serviceScopeFactory;
     }
+
+    public async Task sendLobbyState(LobbyGameState state)
+    {
+        if (Clients != null)
+        {
+            await Clients.Group(state.GameCode).SendAsync("ReceiveLobbyState", state);
+        }
+    }
+
     public async Task JoinGame (string gameCode)
     {
         await Groups.AddToGroupAsync(Context.ConnectionId, gameCode);
         using var scope=_serviceScopeFactory.CreateScope();
         var dbContext = scope.ServiceProvider.GetService<VillainousDbContext>();
         var players=await dbContext.Players.Where(x=>x.Game.Code==gameCode).ToListAsync();
+        await sendLobbyState(new LobbyGameState(players,gameCode));
     }
 }
