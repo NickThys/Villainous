@@ -17,9 +17,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Villainous.Contracts", "Vil
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Villainous.Domain", "Villainous.Domain\Villainous.Domain.csproj", "{03D02532-3AC9-4603-8133-6A665187792B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Villainous.SignalR", "Villainous.SignalR\Villainous.SignalR.csproj", "{016D54BE-EA27-4D5E-A357-2B6003D3EDC0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Villainous.SignalR", "Villainous.SignalR\Villainous.SignalR.csproj", "{016D54BE-EA27-4D5E-A357-2B6003D3EDC0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Villainous.WinForm", "Villainous.WinForm\Villainous.WinForm.csproj", "{9FBF38A4-92E0-432B-B834-575852F3A536}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Villainous.WinForm", "Villainous.WinForm\Villainous.WinForm.csproj", "{9FBF38A4-92E0-432B-B834-575852F3A536}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

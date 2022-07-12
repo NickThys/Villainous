@@ -1,6 +1,8 @@
-using Microsoft.AspNetCore.SignalR.Client;
+
 using Villainous.Client;
 using Villainous.WinForm.Enums;
+using Villainous.Contracts;
+using Microsoft.AspNetCore.SignalR.Client;
 
 namespace Villainous.WinForm
 {
@@ -8,16 +10,16 @@ namespace Villainous.WinForm
     {
         //TODO: add URL
 #if DEBUG
-        private static string _signalRHost = "https://localhost:7186/";
+        private static string _signalRHost = "https://localhost:7186/game";
 #else
-        private static string _signalRHost = "https://villainoussignalr20220711143214.azurewebsites.net/";
+        private static string _signalRHost = "https://villainoussignalr20220711143214.azurewebsites.net/game";
 #endif
         private readonly GameClient _client;
         private LobbyState _lobbyState = LobbyState.MainMenu;
         private readonly Random _random = new ();
         private bool _closing;
         private HubConnection _connection;
-
+        public LobbyGameState LobbyGameState { get; set; }
         public LobbyState LobbyState
         {
             get { return _lobbyState; }
@@ -39,7 +41,7 @@ namespace Villainous.WinForm
             JoinPnl.Visible = _lobbyState == LobbyState.NewGame||_lobbyState==LobbyState.JoinGame;
             CreateGameBTN.Enabled= joinGameBtn.Enabled = _lobbyState == LobbyState.MainMenu;
             CreateGameBTN.Visible=joinGameBtn.Visible=_lobbyState!=LobbyState.Lobby;
-            gameCodeTextLbl.Visible=gameCodeLbl.Visible=_lobbyState==LobbyState.Lobby;
+            playersListBx.Visible=gameCodeTextLbl.Visible=gameCodeLbl.Visible=_lobbyState==LobbyState.Lobby;
             gameCodePanelLBL.Visible=gameCodeTxtBx.Visible=_lobbyState==LobbyState.JoinGame;
         }
 
@@ -54,6 +56,7 @@ namespace Villainous.WinForm
         }
         private async void JoinBtn_Click(object sender, EventArgs e)
         {
+            JoinBtn.Enabled = playerNameTxtBX.Enabled= false;
             var gameCode = string.Empty;
             if (_lobbyState == LobbyState.NewGame)
             {
@@ -63,6 +66,7 @@ namespace Villainous.WinForm
             {
                 gameCode = await _client.JoinGame(gameCodeTxtBx.Text, playerNameTxtBX.Text);
             }
+            await _connection.SendAsync("JoinGame", gameCode);
             LobbyState = LobbyState.Lobby;
             gameCodeLbl.Text = gameCode;
         }
@@ -70,7 +74,9 @@ namespace Villainous.WinForm
         private async void MainMenu_Load(object sender, EventArgs e)
         {
             LobbyState=LobbyState.MainMenu;
-            _connection = new HubConnectionBuilder().WithUrl(_signalRHost).Build();
+            _connection = new HubConnectionBuilder()
+                .WithUrl(_signalRHost)
+                .Build();
 
             _connection.Closed += async (error) =>
               {
@@ -81,6 +87,19 @@ namespace Villainous.WinForm
                   }
               };
 
+            _connection.On<LobbyGameState>("ReceiveLobbyState", state =>
+            {
+                Invoke(() =>
+                {
+                    LobbyGameState = state;
+                    playersListBx.Items.Clear();
+                    gameCodeLbl.Text = state.GameCode;
+                    foreach (var player in state.Players)
+                    {
+                        playersListBx.Items.Add($"{player.Name}  ({(player.IsHost ? "Host" : "")})");
+                    };
+                });
+            });
 
             try
             {
@@ -100,5 +119,6 @@ namespace Villainous.WinForm
                 Text = ex.Message;
             }
         }
+
     }
 }
