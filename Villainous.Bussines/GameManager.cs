@@ -64,4 +64,23 @@ public class GameManager
 
         return new JoinGameResponse(game.Code);
     }
+
+    public async Task<AbandonGameResponse> AbandonGame(AbandonGameRequest request)
+    {
+        var player=await _dbContext.Players.Include(o=>o.Game).FirstOrDefaultAsync(p=>p.Name==request.PlayerName&&p.Game.Code==request.GameCode);
+        if (player != null)
+        {
+            _dbContext.Players.Remove(player);
+            await _dbContext.SaveChangesAsync();
+            var game = await _dbContext.Games.FirstOrDefaultAsync(g => g.Code == request.GameCode);
+            if (game.Players.Count == 0)
+            {
+                _dbContext.Games.Remove(game);
+            }
+            await _dbContext.SaveChangesAsync();
+        }
+
+
+        return new AbandonGameResponse();
+    }
 }

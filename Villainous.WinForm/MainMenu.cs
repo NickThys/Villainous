@@ -120,5 +120,22 @@ namespace Villainous.WinForm
             }
         }
 
+        private async void MainMenu_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (!_closing)
+            {
+                _closing = true;
+                e.Cancel = true;
+
+
+                if(!string.IsNullOrWhiteSpace(gameCodeLbl.Text)&&!string.IsNullOrWhiteSpace(playerNameTxtBX.Text))
+                {
+                    await _client.AbandoneGame(gameCodeLbl.Text,playerNameTxtBX.Text);
+                    await _connection.SendAsync("JoinGame", gameCodeLbl.Text);
+                }
+                await _connection.StopAsync();
+                Close();
+                        }
+        }
     }
 }

@@ -31,5 +31,6 @@ app.UseHttpsRedirection();
 
 app.MapPost("/games", (IApiHelper<GameManager> helper, CreateGameRequest request) => helper.Post(l => l.CreateGame(request)));
 app.MapPost("/games/{GameCode}/join", (IApiHelper<GameManager> helper, [FromRoute] string GameCode, JoinGameRequest request) => helper.Post(l => l.JoinGame(request with { GameCode = GameCode })));
+app.MapPost("/games/{GameCode}/abandone/{PlayerName}",(IApiHelper<GameManager> helper,[FromRoute] string GameCode,[FromRoute] string PlayerName)=>helper.Post(l=>l.AbandonGame(new AbandonGameRequest(PlayerName,GameCode))));
 app.Run();
 
