@@ -83,4 +83,16 @@ public class GameManager
 
         return new AbandonGameResponse();
     }
+
+    public async Task<PlayerReadyResponse> PlayerReady(PlayerReadyRequest request)
+    {
+        var player = await _dbContext.Players.Include(o => o.Game).FirstOrDefaultAsync(p => p.Name == request.PlayerName && p.Game.Code == request.GameCode);
+        if(player == null)
+        {
+            return null;
+        }
+        player.IsReady = true;
+        await _dbContext.SaveChangesAsync();
+        return new PlayerReadyResponse();
+    }
 }

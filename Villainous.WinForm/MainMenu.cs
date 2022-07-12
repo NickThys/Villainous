@@ -41,7 +41,7 @@ namespace Villainous.WinForm
             JoinPnl.Visible = _lobbyState == LobbyState.NewGame||_lobbyState==LobbyState.JoinGame;
             CreateGameBTN.Enabled= joinGameBtn.Enabled = _lobbyState == LobbyState.MainMenu;
             CreateGameBTN.Visible=joinGameBtn.Visible=_lobbyState!=LobbyState.Lobby;
-            playersListBx.Visible=gameCodeTextLbl.Visible=gameCodeLbl.Visible=_lobbyState==LobbyState.Lobby;
+            playersListBx.Visible=gameCodeTextLbl.Visible=gameCodeLbl.Visible=playerReadyBtn.Visible=_lobbyState==LobbyState.Lobby;
             gameCodePanelLBL.Visible=gameCodeTxtBx.Visible=_lobbyState==LobbyState.JoinGame;
         }
 
@@ -70,7 +70,12 @@ namespace Villainous.WinForm
             LobbyState = LobbyState.Lobby;
             gameCodeLbl.Text = gameCode;
         }
-
+        private async void playerReadyBtn_Click(object sender, EventArgs e)
+        {
+            playerReadyBtn.Visible = false;
+            await _client.PlayerReady(gameCodeLbl.Text, playerNameTxtBX.Text);
+            await _connection.SendAsync("PlayerReady",gameCodeLbl.Text);
+        }
         private async void MainMenu_Load(object sender, EventArgs e)
         {
             LobbyState=LobbyState.MainMenu;
@@ -96,7 +101,7 @@ namespace Villainous.WinForm
                     gameCodeLbl.Text = state.GameCode;
                     foreach (var player in state.Players)
                     {
-                        playersListBx.Items.Add($"{player.Name}  ({(player.IsHost ? "Host" : "")})");
+                        playersListBx.Items.Add($"{player.Name}:{(player.IsReady?"Ready":"Not ready")}  {(player.IsHost ? "Host" : "")}");
                     };
                 });
             });
@@ -135,7 +140,7 @@ namespace Villainous.WinForm
                 }
                 await _connection.StopAsync();
                 Close();
-                        }
+            }
         }
     }
 }

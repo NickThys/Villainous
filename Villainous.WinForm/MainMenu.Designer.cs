@@ -42,6 +42,7 @@
             this.gameCodeTextLbl = new System.Windows.Forms.Label();
             this.gameCodeLbl = new System.Windows.Forms.Label();
             this.playersListBx = new System.Windows.Forms.ListBox();
+            this.playerReadyBtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.LogoImg)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             this.JoinPnl.SuspendLayout();
@@ -66,11 +67,11 @@
             this.CreateGameBTN.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.CreateGameBTN.CausesValidation = false;
             this.CreateGameBTN.Font = new System.Drawing.Font("Gloucester MT Extra Condensed", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.CreateGameBTN.Location = new System.Drawing.Point(134, 7);
+            this.CreateGameBTN.Location = new System.Drawing.Point(134, 3);
             this.CreateGameBTN.MaximumSize = new System.Drawing.Size(300, 40);
             this.CreateGameBTN.MinimumSize = new System.Drawing.Size(100, 35);
             this.CreateGameBTN.Name = "CreateGameBTN";
-            this.CreateGameBTN.Size = new System.Drawing.Size(300, 40);
+            this.CreateGameBTN.Size = new System.Drawing.Size(300, 35);
             this.CreateGameBTN.TabIndex = 1;
             this.CreateGameBTN.Text = "Create game";
             this.CreateGameBTN.UseVisualStyleBackColor = true;
@@ -87,8 +88,9 @@
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 556);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 1;
+            this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(1136, 54);
             this.tableLayoutPanel1.TabIndex = 2;
             // 
@@ -98,11 +100,11 @@
             this.joinGameBtn.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.joinGameBtn.CausesValidation = false;
             this.joinGameBtn.Font = new System.Drawing.Font("Gloucester MT Extra Condensed", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.joinGameBtn.Location = new System.Drawing.Point(702, 7);
+            this.joinGameBtn.Location = new System.Drawing.Point(702, 3);
             this.joinGameBtn.MaximumSize = new System.Drawing.Size(300, 40);
             this.joinGameBtn.MinimumSize = new System.Drawing.Size(100, 35);
             this.joinGameBtn.Name = "joinGameBtn";
-            this.joinGameBtn.Size = new System.Drawing.Size(300, 40);
+            this.joinGameBtn.Size = new System.Drawing.Size(300, 35);
             this.joinGameBtn.TabIndex = 2;
             this.joinGameBtn.Text = "Join game";
             this.joinGameBtn.UseVisualStyleBackColor = true;
@@ -196,7 +198,7 @@
             this.gameCodeTextLbl.AutoSize = true;
             this.gameCodeTextLbl.BackColor = System.Drawing.Color.Transparent;
             this.gameCodeTextLbl.Font = new System.Drawing.Font("Gloucester MT Extra Condensed", 25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.gameCodeTextLbl.Location = new System.Drawing.Point(134, 174);
+            this.gameCodeTextLbl.Location = new System.Drawing.Point(134, 157);
             this.gameCodeTextLbl.Name = "gameCodeTextLbl";
             this.gameCodeTextLbl.Size = new System.Drawing.Size(127, 39);
             this.gameCodeTextLbl.TabIndex = 4;
@@ -208,7 +210,7 @@
             this.gameCodeLbl.AutoSize = true;
             this.gameCodeLbl.BackColor = System.Drawing.Color.Transparent;
             this.gameCodeLbl.Font = new System.Drawing.Font("Gloucester MT Extra Condensed", 25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.gameCodeLbl.Location = new System.Drawing.Point(248, 174);
+            this.gameCodeLbl.Location = new System.Drawing.Point(248, 157);
             this.gameCodeLbl.Name = "gameCodeLbl";
             this.gameCodeLbl.Size = new System.Drawing.Size(32, 39);
             this.gameCodeLbl.TabIndex = 5;
@@ -220,11 +222,28 @@
             this.playersListBx.Font = new System.Drawing.Font("Gloucester MT Extra Condensed", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.playersListBx.FormattingEnabled = true;
             this.playersListBx.ItemHeight = 25;
-            this.playersListBx.Location = new System.Drawing.Point(134, 215);
+            this.playersListBx.Location = new System.Drawing.Point(134, 198);
             this.playersListBx.Name = "playersListBx";
             this.playersListBx.Size = new System.Drawing.Size(868, 304);
             this.playersListBx.TabIndex = 6;
             this.playersListBx.Visible = false;
+            // 
+            // playerReadyBtn
+            // 
+            this.playerReadyBtn.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.playerReadyBtn.CausesValidation = false;
+            this.playerReadyBtn.Font = new System.Drawing.Font("Gloucester MT Extra Condensed", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.playerReadyBtn.Location = new System.Drawing.Point(418, 508);
+            this.playerReadyBtn.MaximumSize = new System.Drawing.Size(300, 40);
+            this.playerReadyBtn.MinimumSize = new System.Drawing.Size(100, 35);
+            this.playerReadyBtn.Name = "playerReadyBtn";
+            this.playerReadyBtn.Size = new System.Drawing.Size(300, 35);
+            this.playerReadyBtn.TabIndex = 3;
+            this.playerReadyBtn.Text = "I\'m ready";
+            this.playerReadyBtn.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.playerReadyBtn.UseVisualStyleBackColor = true;
+            this.playerReadyBtn.Visible = false;
+            this.playerReadyBtn.Click += new System.EventHandler(this.playerReadyBtn_Click);
             // 
             // MainMenu
             // 
@@ -234,6 +253,7 @@
             this.BackgroundImage = global::Villainous.WinForm.Properties.Resources.VillainousBG;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1136, 610);
+            this.Controls.Add(this.playerReadyBtn);
             this.Controls.Add(this.gameCodeLbl);
             this.Controls.Add(this.gameCodeTextLbl);
             this.Controls.Add(this.JoinPnl);
@@ -271,5 +291,6 @@
         private Label gameCodeLbl;
         private Button joinGameBtn;
         private ListBox playersListBx;
+        private Button playerReadyBtn;
     }
 }
