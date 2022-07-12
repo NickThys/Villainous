@@ -31,6 +31,7 @@
             this.LogoImg = new System.Windows.Forms.PictureBox();
             this.CreateGameBTN = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.joinGameBtn = new System.Windows.Forms.Button();
             this.JoinPnl = new System.Windows.Forms.Panel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.NameJoinPanelLBL = new System.Windows.Forms.Label();
@@ -40,7 +41,7 @@
             this.JoinBtn = new System.Windows.Forms.Button();
             this.gameCodeTextLbl = new System.Windows.Forms.Label();
             this.gameCodeLbl = new System.Windows.Forms.Label();
-            this.joinGameBtn = new System.Windows.Forms.Button();
+            this.playersListBx = new System.Windows.Forms.ListBox();
             ((System.ComponentModel.ISupportInitialize)(this.LogoImg)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             this.JoinPnl.SuspendLayout();
@@ -90,6 +91,22 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(1136, 54);
             this.tableLayoutPanel1.TabIndex = 2;
+            // 
+            // joinGameBtn
+            // 
+            this.joinGameBtn.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.joinGameBtn.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.joinGameBtn.CausesValidation = false;
+            this.joinGameBtn.Font = new System.Drawing.Font("Gloucester MT Extra Condensed", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.joinGameBtn.Location = new System.Drawing.Point(702, 7);
+            this.joinGameBtn.MaximumSize = new System.Drawing.Size(300, 40);
+            this.joinGameBtn.MinimumSize = new System.Drawing.Size(100, 35);
+            this.joinGameBtn.Name = "joinGameBtn";
+            this.joinGameBtn.Size = new System.Drawing.Size(300, 40);
+            this.joinGameBtn.TabIndex = 2;
+            this.joinGameBtn.Text = "Join game";
+            this.joinGameBtn.UseVisualStyleBackColor = true;
+            this.joinGameBtn.Click += new System.EventHandler(this.joinGameBtn_Click);
             // 
             // JoinPnl
             // 
@@ -198,21 +215,16 @@
             this.gameCodeLbl.Text = "#";
             this.gameCodeLbl.Visible = false;
             // 
-            // joinGameBtn
+            // playersListBx
             // 
-            this.joinGameBtn.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.joinGameBtn.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.joinGameBtn.CausesValidation = false;
-            this.joinGameBtn.Font = new System.Drawing.Font("Gloucester MT Extra Condensed", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.joinGameBtn.Location = new System.Drawing.Point(702, 7);
-            this.joinGameBtn.MaximumSize = new System.Drawing.Size(300, 40);
-            this.joinGameBtn.MinimumSize = new System.Drawing.Size(100, 35);
-            this.joinGameBtn.Name = "joinGameBtn";
-            this.joinGameBtn.Size = new System.Drawing.Size(300, 40);
-            this.joinGameBtn.TabIndex = 2;
-            this.joinGameBtn.Text = "Join game";
-            this.joinGameBtn.UseVisualStyleBackColor = true;
-            this.joinGameBtn.Click += new System.EventHandler(this.joinGameBtn_Click);
+            this.playersListBx.Font = new System.Drawing.Font("Gloucester MT Extra Condensed", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.playersListBx.FormattingEnabled = true;
+            this.playersListBx.ItemHeight = 25;
+            this.playersListBx.Location = new System.Drawing.Point(134, 215);
+            this.playersListBx.Name = "playersListBx";
+            this.playersListBx.Size = new System.Drawing.Size(868, 304);
+            this.playersListBx.TabIndex = 6;
+            this.playersListBx.Visible = false;
             // 
             // MainMenu
             // 
@@ -227,6 +239,7 @@
             this.Controls.Add(this.JoinPnl);
             this.Controls.Add(this.LogoImg);
             this.Controls.Add(this.tableLayoutPanel1);
+            this.Controls.Add(this.playersListBx);
             this.Name = "MainMenu";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Menu";
@@ -256,5 +269,6 @@
         private Label gameCodeTextLbl;
         private Label gameCodeLbl;
         private Button joinGameBtn;
+        private ListBox playersListBx;
     }
 }
