@@ -8,7 +8,7 @@ public class GameClient
 #if DEBUG
     private static string _apiHost = "https://localhost:7175";
 #else
-    private static string _apiHost = "https://villainousapi.azure-api.net/";
+    private static string _apiHost = "https://villainousapi.azure-api.net";
 #endif
 
 
@@ -33,5 +33,12 @@ public class GameClient
         var joinGameResponse=await response.Content.ReadFromJsonAsync<JoinGameRequest>();
 
         return joinGameResponse.GameCode;
+    }
+
+    public async Task AbandoneGame(string gameCode,string playerName)
+    {
+
+        var client = new HttpClient();
+        _ = await client.PostAsJsonAsync($"{_apiHost}/games/{gameCode}/abandone/{playerName}","null");
     }
 }
