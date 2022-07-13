@@ -103,4 +103,18 @@ public class GameManager
         await _dbContext.SaveChangesAsync();
         return new PlayerReadyResponse();
     }
+
+    public async Task<StartGameResponse> StartGame(StartGameRequest request)
+    {
+        var game = await _dbContext.Games.FirstOrDefaultAsync(g => g.Code == request.GameCode);
+        if (game == null)
+        {
+            return null;
+        }
+
+        game.IsActive = true;
+        await _dbContext.SaveChangesAsync();
+
+        return new StartGameResponse();
+    }
 }

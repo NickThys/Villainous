@@ -46,4 +46,10 @@ public class GameClient
         var client = new HttpClient();
         _ = await client.PostAsJsonAsync($"{_apiHost}/games/{gameCode}/ready/{playerName}","null");
     }
+
+    public async Task StartGame(string gameCode) 
+    {
+        var client = new HttpClient();
+        _ = await client.PostAsJsonAsync($"{_apiHost}/games/{gameCode}/start", "null");
+    }
 }

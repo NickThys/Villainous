@@ -93,9 +93,10 @@ namespace Villainous.WinForm
             LobbyState=LobbyState.MainMenu;
         }
 
-        private void startGameBtn_Click(object sender, EventArgs e)
+        private async void startGameBtn_Click(object sender, EventArgs e)
         {
-
+            await _client.StartGame(gameCodeLbl.Text);
+            await _connection.SendAsync("StartGame",gameCodeLbl.Text);
         }
         private async void MainMenu_Load(object sender, EventArgs e)
         {
@@ -136,6 +137,17 @@ namespace Villainous.WinForm
                 });
             });
 
+            _connection.On<string>("gameStarting", gameCode =>
+            {
+                Invoke(() =>
+                {
+                    //ToDo Go to game form
+                    Game game = new Game(gameCode, playerNameTxtBX.Text, LobbyGameState.Players);
+                    game.Tag = this;
+                    game.Show(this);
+                    Hide();
+                });
+            });
             try
             {
                 while (_connection.State != HubConnectionState.Connected)

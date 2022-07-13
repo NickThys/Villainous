@@ -47,4 +47,12 @@ public class GameHub:Hub
         var players = await dbContext.Players.Where(x => x.Game.Code == gameCode).ToListAsync();
         await sendLobbyState(new LobbyGameState(players, gameCode));
     }
+
+    public async Task StartGame(string gameCode)
+    {
+        if (Clients != null)
+        {
+            await Clients.Group(gameCode).SendAsync("gameStarting", gameCode);
+        }
+    }
 }
