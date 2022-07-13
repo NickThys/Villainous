@@ -1,8 +1,8 @@
-
 using Villainous.Client;
 using Villainous.WinForm.Enums;
 using Villainous.Contracts;
 using Microsoft.AspNetCore.SignalR.Client;
+using Villainous.Domain;
 
 namespace Villainous.WinForm
 {
@@ -16,10 +16,22 @@ namespace Villainous.WinForm
 #endif
         private readonly GameClient _client;
         private LobbyState _lobbyState = LobbyState.MainMenu;
-        private readonly Random _random = new ();
+        private readonly Random _random = new();
         private bool _closing;
         private HubConnection _connection;
-        public LobbyGameState LobbyGameState { get; set; }
+        private Player _player;
+        private LobbyGameState _lobbyGameState;
+
+        public LobbyGameState LobbyGameState
+        {
+            get { return _lobbyGameState; }
+            set
+            {
+                _lobbyGameState = value;
+                _player = _lobbyGameState.Players.Find(p => p.Name == playerNameTxtBX.Text);
+            }
+        }
+
         public LobbyState LobbyState
         {
             get { return _lobbyState; }
@@ -30,7 +42,6 @@ namespace Villainous.WinForm
             }
         }
 
-
         public MainMenu(GameClient gameClient)
         {
             _client = gameClient;
@@ -38,11 +49,11 @@ namespace Villainous.WinForm
         }
         private void RefreshMenu()
         {
-            JoinPnl.Visible = _lobbyState == LobbyState.NewGame||_lobbyState==LobbyState.JoinGame;
-            CreateGameBTN.Enabled= joinGameBtn.Enabled = _lobbyState == LobbyState.MainMenu;
-            CreateGameBTN.Visible=joinGameBtn.Visible=_lobbyState!=LobbyState.Lobby;
-            playersListBx.Visible=gameCodeTextLbl.Visible=gameCodeLbl.Visible=_lobbyState==LobbyState.Lobby;
-            gameCodePanelLBL.Visible=gameCodeTxtBx.Visible=_lobbyState==LobbyState.JoinGame;
+            JoinPnl.Visible = _lobbyState == LobbyState.NewGame || _lobbyState == LobbyState.JoinGame;
+            CreateGameBTN.Enabled = joinGameBtn.Enabled = _lobbyState == LobbyState.MainMenu;
+            CreateGameBTN.Visible = joinGameBtn.Visible = _lobbyState != LobbyState.Lobby;
+            playersListBx.Visible = gameCodeTextLbl.Visible = gameCodeLbl.Visible = playerReadyBtn.Visible = _lobbyState == LobbyState.Lobby;
+            gameCodePanelLBL.Visible = gameCodeTxtBx.Visible = _lobbyState == LobbyState.JoinGame;
         }
 
         private void CreateGameBTN_Click(object sender, EventArgs e)
@@ -56,7 +67,7 @@ namespace Villainous.WinForm
         }
         private async void JoinBtn_Click(object sender, EventArgs e)
         {
-            JoinBtn.Enabled = playerNameTxtBX.Enabled= false;
+            JoinBtn.Enabled = playerNameTxtBX.Enabled = false;
             var gameCode = string.Empty;
             if (_lobbyState == LobbyState.NewGame)
             {
@@ -70,22 +81,32 @@ namespace Villainous.WinForm
             LobbyState = LobbyState.Lobby;
             gameCodeLbl.Text = gameCode;
         }
+        private async void playerReadyBtn_Click(object sender, EventArgs e)
+        {
+            playerReadyBtn.Visible = false;
+            await _client.PlayerReady(gameCodeLbl.Text, playerNameTxtBX.Text);
+            await _connection.SendAsync("PlayerReady", gameCodeLbl.Text);
+        }
 
+        private void startGameBtn_Click(object sender, EventArgs e)
+        {
+
+        }
         private async void MainMenu_Load(object sender, EventArgs e)
         {
-            LobbyState=LobbyState.MainMenu;
+            LobbyState = LobbyState.MainMenu;
             _connection = new HubConnectionBuilder()
                 .WithUrl(_signalRHost)
                 .Build();
 
             _connection.Closed += async (error) =>
-              {
-                  if (!_closing)
-                  {
-                      await Task.Delay(_random.Next(0, 5) * 1000);
-                      await _connection.StartAsync();
-                  }
-              };
+            {
+                if (!_closing)
+                {
+                    await Task.Delay(_random.Next(0, 5) * 1000);
+                    await _connection.StartAsync();
+                }
+            };
 
             _connection.On<LobbyGameState>("ReceiveLobbyState", state =>
             {
@@ -96,8 +117,13 @@ namespace Villainous.WinForm
                     gameCodeLbl.Text = state.GameCode;
                     foreach (var player in state.Players)
                     {
-                        playersListBx.Items.Add($"{player.Name}  ({(player.IsHost ? "Host" : "")})");
+                        playersListBx.Items.Add($"{player.Name}: {(player.IsReady ? "Ready" : "Not ready")}  {(player.IsHost ? "Host" : "")}");
                     };
+                    if (_player.IsHost)
+                    {
+                        startGameBtn.Visible = true;
+                        startGameBtn.Enabled = _lobbyGameState.Players.Where(p => !p.IsReady).Count() == 0;
+                    }
                 });
             });
 
@@ -128,14 +154,14 @@ namespace Villainous.WinForm
                 e.Cancel = true;
 
 
-                if(!string.IsNullOrWhiteSpace(gameCodeLbl.Text)&&!string.IsNullOrWhiteSpace(playerNameTxtBX.Text))
+                if (!string.IsNullOrWhiteSpace(gameCodeLbl.Text) && !string.IsNullOrWhiteSpace(playerNameTxtBX.Text))
                 {
-                    await _client.AbandoneGame(gameCodeLbl.Text,playerNameTxtBX.Text);
+                    await _client.AbandoneGame(gameCodeLbl.Text, playerNameTxtBX.Text);
                     await _connection.SendAsync("JoinGame", gameCodeLbl.Text);
                 }
                 await _connection.StopAsync();
                 Close();
-                        }
+            }
         }
     }
 }

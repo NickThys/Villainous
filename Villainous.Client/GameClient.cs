@@ -37,8 +37,13 @@ public class GameClient
 
     public async Task AbandoneGame(string gameCode,string playerName)
     {
-
         var client = new HttpClient();
         _ = await client.PostAsJsonAsync($"{_apiHost}/games/{gameCode}/abandone/{playerName}","null");
+    }
+
+    public async Task PlayerReady(string gameCode,string playerName)
+    {
+        var client = new HttpClient();
+        _ = await client.PostAsJsonAsync($"{_apiHost}/games/{gameCode}/ready/{playerName}","null");
     }
 }
