@@ -88,6 +88,11 @@ namespace Villainous.WinForm
             await _connection.SendAsync("PlayerReady", gameCodeLbl.Text);
         }
 
+        private void cancelJoinPanelBtn_Click(object sender, EventArgs e)
+        {
+            LobbyState=LobbyState.MainMenu;
+        }
+
         private void startGameBtn_Click(object sender, EventArgs e)
         {
 
@@ -163,5 +168,6 @@ namespace Villainous.WinForm
                 Close();
             }
         }
+
     }
 }
