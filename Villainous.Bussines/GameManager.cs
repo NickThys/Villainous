@@ -72,6 +72,14 @@ public class GameManager
         {
             _dbContext.Players.Remove(player);
             await _dbContext.SaveChangesAsync();
+
+            if (_dbContext.Players.Where(p => p.IsHost&& p.Game.Code==request.GameCode).Count() == 0)
+            {
+                var newHost = await _dbContext.Players.FirstAsync(p => p.Game.Code == request.GameCode);
+                newHost.IsHost = true;
+                await _dbContext.SaveChangesAsync();
+            }
+            
             var game = await _dbContext.Games.FirstOrDefaultAsync(g => g.Code == request.GameCode);
             if (game.Players.Count == 0)
             {

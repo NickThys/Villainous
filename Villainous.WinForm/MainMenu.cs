@@ -115,6 +115,7 @@ namespace Villainous.WinForm
                     LobbyGameState = state;
                     playersListBx.Items.Clear();
                     gameCodeLbl.Text = state.GameCode;
+
                     foreach (var player in state.Players)
                     {
                         playersListBx.Items.Add($"{player.Name}: {(player.IsReady ? "Ready" : "Not ready")}  {(player.IsHost ? "Host" : "")}");
