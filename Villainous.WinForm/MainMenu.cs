@@ -125,6 +125,9 @@ namespace Villainous.WinForm
                     {
                         playersListBx.Items.Add($"{player.Name}: {(player.IsReady ? "Ready" : "Not ready")}  {(player.IsHost ? "Host" : "")}");
                     };
+
+                    playerReadyBtn.Visible = !_player.IsReady;
+                    
                     if (_player.IsHost)
                     {
                         startGameBtn.Visible = true;
