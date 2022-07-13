@@ -11,6 +11,7 @@ builder.Services.ConfigureInfastructure(connString);
 builder.Services.AddTransient<GameManager>();
 builder.Services.AddSignalR();
 builder.Services.AddSingleton<GameHub>();
+builder.Services.AddApplicationInsightsTelemetry(builder.Configuration["APPLICATIONINSIGHTS_CONNECTION_STRING"]);
 var app = builder.Build();
 
 app.MapGet("/", () => "This is a SignalR host application!");
