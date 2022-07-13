@@ -43,6 +43,7 @@
             this.gameCodeLbl = new System.Windows.Forms.Label();
             this.playersListBx = new System.Windows.Forms.ListBox();
             this.playerReadyBtn = new System.Windows.Forms.Button();
+            this.startGameBtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.LogoImg)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             this.JoinPnl.SuspendLayout();
@@ -233,7 +234,7 @@
             this.playerReadyBtn.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.playerReadyBtn.CausesValidation = false;
             this.playerReadyBtn.Font = new System.Drawing.Font("Gloucester MT Extra Condensed", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.playerReadyBtn.Location = new System.Drawing.Point(418, 508);
+            this.playerReadyBtn.Location = new System.Drawing.Point(417, 508);
             this.playerReadyBtn.MaximumSize = new System.Drawing.Size(300, 40);
             this.playerReadyBtn.MinimumSize = new System.Drawing.Size(100, 35);
             this.playerReadyBtn.Name = "playerReadyBtn";
@@ -244,6 +245,24 @@
             this.playerReadyBtn.UseVisualStyleBackColor = true;
             this.playerReadyBtn.Visible = false;
             this.playerReadyBtn.Click += new System.EventHandler(this.playerReadyBtn_Click);
+            // 
+            // startGameBtn
+            // 
+            this.startGameBtn.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.startGameBtn.CausesValidation = false;
+            this.startGameBtn.Enabled = false;
+            this.startGameBtn.Font = new System.Drawing.Font("Gloucester MT Extra Condensed", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.startGameBtn.Location = new System.Drawing.Point(418, 508);
+            this.startGameBtn.MaximumSize = new System.Drawing.Size(300, 40);
+            this.startGameBtn.MinimumSize = new System.Drawing.Size(100, 35);
+            this.startGameBtn.Name = "startGameBtn";
+            this.startGameBtn.Size = new System.Drawing.Size(300, 35);
+            this.startGameBtn.TabIndex = 7;
+            this.startGameBtn.Text = "Start the game";
+            this.startGameBtn.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.startGameBtn.UseVisualStyleBackColor = true;
+            this.startGameBtn.Visible = false;
+            this.startGameBtn.Click += new System.EventHandler(this.startGameBtn_Click);
             // 
             // MainMenu
             // 
@@ -260,6 +279,7 @@
             this.Controls.Add(this.LogoImg);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.playersListBx);
+            this.Controls.Add(this.startGameBtn);
             this.Name = "MainMenu";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Menu";
@@ -292,5 +312,6 @@
         private Button joinGameBtn;
         private ListBox playersListBx;
         private Button playerReadyBtn;
+        private Button startGameBtn;
     }
 }
