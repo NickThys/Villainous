@@ -39,4 +39,12 @@ public class GameHub:Hub
         var players = await dbContext.Players.Where(x => x.Game.Code == gameCode).ToListAsync();
         await sendLobbyState(new LobbyGameState(players, gameCode));
     }
+
+    public async Task PlayerReady(string gameCode)
+    {
+        using var scope = _serviceScopeFactory.CreateScope();
+        var dbContext = scope.ServiceProvider.GetService<VillainousDbContext>();
+        var players = await dbContext.Players.Where(x => x.Game.Code == gameCode).ToListAsync();
+        await sendLobbyState(new LobbyGameState(players, gameCode));
+    }
 }
